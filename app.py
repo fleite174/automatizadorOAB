@@ -6,16 +6,21 @@ from time import sleep
 
 numero_oab = 133864
 
-# entrar no site da - https://pje-consultapublica.tjdft.jus.br/
+# entrar no site da - https://pje-consulta-publica.tjmg.jus.br/
 driver =  webdriver.Chrome()
-driver.get('https://pje-consultapublica.tjdft.jus.br/')
+driver.get('https://pje-consulta-publica.tjmg.jus.br/')
 sleep(30)
 # digitar número oab 
 campo_oab = driver.find_element(By.XPATH,"//input[@id='fPP:Decoration:numeroOAB']")
 campo_oab.send_keys(numero_oab)
 # selecionar estado
-driver.find_element(By.XPATH,"//select[@id='fPP:Decoration:estadoComboOAB']")
+dropdown_estados = driver.find_element(By.XPATH,"//select[@id='fPP:Decoration:estadoComboOAB']")
+opcoes_estados = Select(dropdown_estados)
+opcoes_estados.select_by_visible_text('SP')
 # clicar em pesquisar
+botao_pesquisar = driver.find_element(By.XPATH,"//input[@id='fPP:searchProcessos']")
+botao_pesquisar.click()
+sleep(10)
 # entrar em cada um dos processos
 # extrair o número do processo e data da distribuição
 # extrair e guardar todas as ultimas movimentações
