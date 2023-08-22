@@ -22,6 +22,13 @@ botao_pesquisar = driver.find_element(By.XPATH,"//input[@id='fPP:searchProcessos
 botao_pesquisar.click()
 sleep(10)
 # entrar em cada um dos processos
+link_processos = driver.find_element(By.XPATH,"//b[@class='btn-block']")
+for link_processo  in link_processos:
+    link_processos.click()
+    sleep(10)
+    janelas = driver.window_handles
+    driver.switch_to.window(janelas[-1])
+    driver.set_window_size(1920, 1080)
 # extrair o número do processo e data da distribuição
 # extrair e guardar todas as ultimas movimentações
 # guardar tudo no excel, separados por processo
