@@ -32,6 +32,10 @@ for link_processo  in link_processos:
     numero_processo = driver.find_elements(By.XPATH,"//div[@class='col-sm-12 ']")
     numero_processo = numero_processo[0]
     numero_processo = numero_processo.text
+
+    data_distribuicao = driver.find_elements(By.XPATH,"//div[@class='value col-sm-12 ']")
+    data_distribuicao = data_distribuicao[1]
+    data_distribuicao = data_distribuicao.text
 # extrair o número do processo e data da distribuição
 # extrair e guardar todas as ultimas movimentações
 # guardar tudo no excel, separados por processo
