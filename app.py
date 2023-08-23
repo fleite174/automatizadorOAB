@@ -24,7 +24,7 @@ sleep(10)
 # entrar em cada um dos processos
 link_processos = driver.find_elements(By.XPATH,"//b[@class='btn-block']")
 for link_processo  in link_processos:
-    link_processos.click()
+    link_processo.click()
     sleep(10)
     janelas = driver.window_handles
     driver.switch_to.window(janelas[-1])
