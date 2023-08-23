@@ -44,4 +44,30 @@ lista_movimentacoes = []
 for movimentacao in movimentacoes:
     lista_movimentacoes.append(movimentacao.text)
 # guardar tudo no excel, separados por processo
-openpyxl.load_workbook('dados.xlsx')
+workbook = openpyxl.load_workbook('dados.xlsx')
+try:
+    # código para inserir dados em página existente
+    # acessar página do processo
+    pagina_processo = workbook[numero_processo]
+    # criar nome das colunas
+    pagina_processo['A1'].value = "Número Processo"
+    pagina_processo['B1'].value = "Data Distribuição"
+    pagina_processo['C1'].value = "Movimentações"
+    # adicionar número do processo
+    pagina_processo['A2'].value = numero_processo
+    # adicionar data de distribuição
+    pagina_processo['B2'].value = data_distribuicao
+    # adicionar movimentações
+    for index, movimentacao in enumerate(pagina_processo.iter_rows(min_row=2,max_row=len(lista_movimentacoes),min_col=3,max_col=3)):
+        for celula in linha:
+            celula.value = lista_movimentacoes[index]
+    workbook.save('dados.xlsx')
+    driver.close()
+    driver.switch_to.window(driver.window_handles[0])
+except Exception as error:
+    # código para criar uma pagina do zero e inserir as informações
+    # acessar página do processo
+    # criar nome das colunas
+    # adicionar número do processo
+    # adicionar data de distribuição
+    # adicionar movimentações
