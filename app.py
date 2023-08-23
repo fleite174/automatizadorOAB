@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from time import sleep
+import openpyxl
 
 numero_oab = 133864
 
@@ -29,6 +30,7 @@ for link_processo  in link_processos:
     janelas = driver.window_handles
     driver.switch_to.window(janelas[-1])
     driver.set_window_size(1920, 1080)
+# extrair o número do processo e data da distribuição
     numero_processo = driver.find_elements(By.XPATH,"//div[@class='col-sm-12 ']")
     numero_processo = numero_processo[0]
     numero_processo = numero_processo.text
@@ -36,6 +38,10 @@ for link_processo  in link_processos:
     data_distribuicao = driver.find_elements(By.XPATH,"//div[@class='value col-sm-12 ']")
     data_distribuicao = data_distribuicao[1]
     data_distribuicao = data_distribuicao.text
-# extrair o número do processo e data da distribuição
 # extrair e guardar todas as ultimas movimentações
+movimentacoes = driver.find_elements(By.XPATH,"//div[@id='j_id132:processoEventoPanel_body']//tr[contains(@class,'rich-table-row ')]//td//div//div//span")
+lista_movimentacoes = []
+for movimentacao in movimentacoes:
+    lista_movimentacoes.append(movimentacao.text)
 # guardar tudo no excel, separados por processo
+openpyxl.load_workbook('dados.xlsx')
